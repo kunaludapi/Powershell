@@ -1,0 +1,21 @@
+robocopy.exe $Source $Destination $PatternArg $MirrorArg /NDL /NJH /NJS | ForEach-Object -Process {
+    $data = $_.Split([char]9);
+    if (($data.Count -gt 4) -and ("$($data[4])" -ne ""))
+    {
+        $file = "$($data[4])"
+        Write-Progress "Percentage $($data[0])" -Activity "Robocopy" -CurrentOperation "$($file)" -ErrorAction SilentlyContinue; 
+    }
+    else
+    {
+        Write-Progress "Percentage $($data[0])" -Activity "Robocopy" -CurrentOperation "$($file)"
+    }
+}
+# Robocopy has a bitmask set of exit codes, so only complain about failures:
+[int] $exitCode = $global:LastExitCode;
+[int] $someCopyErrors = $exitCode -band 8;
+[int] $seriousError = $exitCode -band 16;
+if (($someCopyErrors -ne 0) -or ($seriousError -ne 0))
+{
+    Write-Error "ERROR: robocopy failed with a non-successful exit code: $exitCode"
+    exit 1
+}

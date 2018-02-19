@@ -1,0 +1,47 @@
+function Copy-File {
+param( [string]$from, [string]$to)
+$ffile = [io.file]::OpenRead($from)
+$tofile = [io.file]::OpenWrite($to)
+Write-Progress `
+    -Activity ("Copying file " + $filecount + " of " + $files.count) `
+    -status ($from.Split("\")|select -last 1) `
+    -PercentComplete 0
+try {
+    $sw = [System.Diagnostics.Stopwatch]::StartNew();
+    [byte[]]$buff = new-object byte[] 65536
+    [long]$total = [long]$count = 0
+    do {
+        $count = $ffile.Read($buff, 0, $buff.Length)
+        $tofile.Write($buff, 0, $count)
+        $total += $count
+        if ($total % 1mb -eq 0) {
+            if([int]($total/$ffile.Length* 100) -gt 0)`
+                {[int]$secsleft = ([int]$sw.Elapsed.Seconds/([int]($total/$ffile.Length* 100))*100)
+                } else {
+                [int]$secsleft = 0};
+            Write-Progress `
+                -Activity ([string]([int]($total/$ffile.Length* 100)) + "% Copying file")`
+                -status ($from.Split("\")|select -last 1) `
+                -PercentComplete ([int]($total/$ffile.Length* 100))`
+                -SecondsRemaining $secsleft;
+        }
+    } while ($count -gt 0)
+$sw.Stop();
+$sw.Reset();
+}
+finally {
+    $ffile.Close()
+    $tofile.Close()
+    }
+}
+
+$srcdir = "C:\Source;
+$destdir = "C:\Dest";
+[int]$filecount = 0;
+$files = (Get-ChildItem $SrcDir | where-object {-not ($_.PSIsContainer)});
+$files|foreach($_){
+$filecount++
+if ([system.io.file]::Exists($destdir+$_.name)){
+                [system.io.file]::Delete($destdir+$_.name)}
+                Copy-File -from $_.fullname -to ($destdir+$_.name)
+};
