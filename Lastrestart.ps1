@@ -8,10 +8,10 @@ function Get-RestartEventLogs {
     )
     if (Test-Connection $ComputerName -Quiet -Count 2) {
         try {
-            Get-EventLog -LogName System -Source user32 -ComputerName $ComputerName -Newest 10 | Select-Object UserName, TimeWritten, MachineName
+            Get-EventLog -LogName System -Source user32 -ComputerName $ComputerName -Newest 10 -ErrorAction Stop | Select-Object UserName, TimeWritten, MachineName
         }
         catch {
-            [System.Windows.MessageBox]::Show("Cannot retrive event logs from server $ComputerName.", "Server unreachable")
+            [System.Windows.MessageBox]::Show("Cannot retrive event logs from server $ComputerName.  Check permissions.", "Server unreachable")
         }
     }
     else {
@@ -27,7 +27,7 @@ function Get-RestartEventLogs {
     <Grid>
         <Label Name="ComputerLabel" Content="Computer or IP" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="30" Width="110"/>
         <Button Name="RestartLogsButton" Content="Get-Restartlogs" HorizontalAlignment="Left" Margin="200,43,0,0" VerticalAlignment="Top" Width="126" RenderTransformOrigin="2,1.227"/>
-        <TextBox Name="ComputerNameBox" HorizontalAlignment="Left" Height="28" Margin="125,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" ToolTip="Type valid Computer name or IP address" AutomationProperties.HelpText="Type valid Computer name or IP address" Text="127.0.0.1"/>
+        <TextBox Name="ComputerNameBox" HorizontalAlignment="Left" Height="28" Margin="125,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" ToolTip="Type valid Computer name or IP address" AutomationProperties.HelpText="Type valid Computer name or IP address"/>
         <DataGrid Name="ResultDataGrid" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Height="257" Width="316"/>
         <TextBlock Name="Url" HorizontalAlignment="Left" Margin="206,331,0,0" TextWrapping="Wrap" Text="http://vcloud-lab.com" VerticalAlignment="Top" Width="120"/>
     </Grid>
@@ -43,6 +43,9 @@ $ComputerNameBox = $XMLForm.FindName('ComputerNameBox')
 $RestartLogsButton = $XMLForm.FindName('RestartLogsButton')
 $ResultDataGrid = $XMLForm.FindName('ResultDataGrid')
 
+#computername to textbox
+$ComputerNameBox.Text = $env:COMPUTERNAME
+
 #Create array object for Result DataGrid
 $RestartEventList = New-Object System.Collections.ArrayList
 
@@ -56,9 +59,11 @@ $RestartLogsButton.add_click({
     #Check server is reachable and get winevent
     $Events = Get-RestartEventLogs -ComputerName $ComputerNameBox.Text
     
-    #Build Datagrid
-    $RestartEventList.AddRange($Events)
-    $ResultDataGrid.ItemsSource=@($RestartEventList)
+    #Build Datagrid if there
+    if ($Events -ne 'OK') {
+        $RestartEventList.AddRange($Events)
+        $ResultDataGrid.ItemsSource=@($RestartEventList)
+    }
 })
 
 #Show XMLform
