@@ -1,14 +1,39 @@
 <# This form was created using POSHGUI.com  a free online gui designer for PowerShell 
    WrittenBy:  http://vcloud-lab.com
 .NAME 
-    sid to user 
+    SID to Account
+    Account to SID
 
 #> 
 
-#Add-Type -AssemblyName System.Windows.Forms 
+#Add-Type -AssemblyName System.Windows.Forms
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")  
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")  
 [System.Windows.Forms.Application]::EnableVisualStyles() 
+
+function Get-SID { 
+    try { 
+            $LocalAccount = New-Object System.Security.Principal.NTAccount(($InputBox.Text).trim()) -ErrorAction Stop 
+            $LocalSID = $LocalAccount.Translate([System.Security.Principal.SecurityIdentifier]) 
+            $OutputResult.Text = $LocalSID.Value 
+        } 
+        catch { 
+            [System.Windows.Forms.MessageBox]::Show("Typed Domain\AccountName not valid", "Invalid details") 
+            $OutputResult.Text = '' 
+        } 
+} 
+
+function Get-Account { 
+    try { 
+        $SID = New-Object System.Security.Principal.SecurityIdentifier(($InputBox.Text).trim()) -ErrorAction Stop 
+        $DomainAccount = $SID.Translate([System.Security.Principal.NTAccount]) 
+        $OutputResult.Text = $DomainAccount.Value 
+    } 
+    catch { 
+        [System.Windows.Forms.MessageBox]::Show("Typed SID is not valid", "Invalid details") 
+        $OutputResult.Text = '' 
+    } 
+} 
 
 #region begin GUI{ 
 $Tooltip = New-Object System.Windows.Forms.ToolTip 
@@ -24,7 +49,7 @@ $ShowHelp = {
 
 $vcloudlabform                      = New-Object system.Windows.Forms.Form 
 $vcloudlabform.ClientSize           = '396,172' 
-$vcloudlabform.text                 = "SID and User converter" 
+$vcloudlabform.text                 = "SID to Account and Vice Versa" 
 $vcloudlabform.TopMost              = $false 
 
 $InputBox                           = New-Object system.Windows.Forms.TextBox 
@@ -60,16 +85,6 @@ $AccountToSid.Font                  = 'Microsoft Sans Serif,10'
 $AccountToSid.add_MouseHover($ShowHelp) 
 $AccountToSid.add_Click({Show-AccountToSID}) 
 
-$LocalCheckBox                      = New-Object system.Windows.Forms.CheckBox 
-$LocalCheckBox.Name                 = 'LocalCheckBox' 
-$LocalCheckBox.text                 = "Local" 
-$LocalCheckBox.AutoSize             = $false 
-$LocalCheckBox.width                = 95 
-$LocalCheckBox.height               = 20 
-$LocalCheckBox.location             = New-Object System.Drawing.Point(260,103) 
-$LocalCheckBox.Font                 = 'Microsoft Sans Serif,10' 
-$LocalCheckBox.add_MouseHover($ShowHelp) 
-
 $OutputResult                       = New-Object system.Windows.Forms.TextBox 
 $OutputResult.Name                  = 'OutputResult' 
 $OutputResult.multiline             = $false 
@@ -91,50 +106,12 @@ $Site.location                      = New-Object System.Drawing.Point(260,154)
 $Site.Font                          = 'Microsoft Sans Serif,10' 
 $Site.add_Click({[system.Diagnostics.Process]::start('http://vcloud-lab.com')}) 
 
-$vcloudlabform.controls.AddRange(@($InputBox,$OutputResult,$SidToAccount,$AccountToSid,$Site,$LocalCheckBox)) 
+$vcloudlabform.controls.AddRange(@($InputBox,$OutputResult,$SidToAccount,$AccountToSid,$Site)) 
 
 #region gui events { 
-function Get-SID { 
-    $DomainUserName = ($InputBox.Text).trim() -split '\\' 
-    if ($LocalCheckBox.Checked -eq $false) { 
-        try { 
-            $DomainAccount = New-Object System.Security.Principal.NTAccount($DomainUserName[0], $DomainUserName[1]) -ErrorAction Stop 
-            $AccounttoSID = $DomainAccount.Translate([System.Security.Principal.SecurityIdentifier]) 
-            $OutputResult.Text = $AccounttoSID.Value 
-        } 
-        catch { 
-            [System.Windows.MessageBox]::Show("Typed Domain and account details are not valid", "Invalid details") 
-            $OutputResult.Text = '' 
-        } 
-    } 
-    else { 
-        try { 
-            $LocalAccount = New-Object System.Security.Principal.NTAccount(($InputBox.Text).trim()) -ErrorAction Stop 
-            $LocalSID = $LocalAccount.Translate([System.Security.Principal.SecurityIdentifier]) 
-            $OutputResult.Text = $LocalSID.Value 
-        } 
-        catch { 
-            [System.Windows.MessageBox]::Show("Typed local account is not valid", "Invalid details") 
-            $OutputResult.Text = '' 
-        } 
-    } 
-} 
-
-function Get-Account { 
-    try { 
-        $SID = New-Object System.Security.Principal.SecurityIdentifier(($InputBox.Text).trim()) -ErrorAction Stop 
-        $DomainAccount = $SID.Translate([System.Security.Principal.NTAccount]) 
-        $OutputResult.Text = $DomainAccount.Value 
-    } 
-    catch { 
-        [System.Windows.MessageBox]::Show("Typed Domain and account details are not valid", "Invalid details") 
-        $OutputResult.Text = '' 
-    } 
-} 
-
 function Show-AccountToSID { 
     if (($InputBox.Text -eq $InputBoxWaterMark) -or ($InputBox.Text -eq '')) { 
-        [System.Windows.MessageBox]::Show("Please type valid Domain\Account", "Textbox empty") 
+        [System.Windows.Forms.MessageBox]::Show("Please type valid Domain\Account", "Textbox empty") 
     } 
     else { 
         Get-SID 
@@ -143,7 +120,7 @@ function Show-AccountToSID {
 
 function Show-SIDToAccount { 
     if (($InputBox.Text -eq $InputBoxWaterMark) -or ($InputBox.Text -eq '')) { 
-        [System.Windows.MessageBox]::Show("Please type valid SID", "Textbox empty") 
+        [System.Windows.Forms.MessageBox]::Show("Please type valid SID", "Textbox empty") 
     } 
     else { 
         Get-Account 
