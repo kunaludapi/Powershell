@@ -21,8 +21,6 @@ Configuration SetLCMPullMode {
     }
 }
 
-
-
 #Create the .MOF meta file for the target node
 cd C:\Temp
 SetLCMPullMode -ComputerName srv01 -Guid 8b055a11-04fb-4eaf-b560-b5ea1fc3d298
