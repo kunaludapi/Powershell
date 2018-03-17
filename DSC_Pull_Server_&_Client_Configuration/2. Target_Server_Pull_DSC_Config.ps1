@@ -29,9 +29,6 @@ Configuration BasicConf {
 cd C:\Temp
 BasicConf -Computername srv01
 
-#3: Create a checksum of .mof file
-New-DscChecksum .\BasicConf\srv01.mof
-
 #4: Copy .mof files to the DSC configuration location
 #$Guid = [guid]::NewGuid()
 $Guid = New-Guid | Select-Object -ExpandProperty Guid
