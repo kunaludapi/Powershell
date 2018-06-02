@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <!-- This is only used internally - none of you business! -->
+        <ResourceDictionary Source="Blend.xaml" />
+        <ResourceDictionary Source="Dark.xaml" />
+        <ResourceDictionary Source="DarkBlue.xaml" />
+        <ResourceDictionary Source="Light.xaml" />
+        <ResourceDictionary Source="LightBlue.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

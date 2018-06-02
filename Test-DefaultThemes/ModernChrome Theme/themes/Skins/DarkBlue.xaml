@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- COLORS -->
+    <Color x:Key="ActiveBorderColorKey">#000000</Color>
+    <Color x:Key="ActiveCaptionIconColorKey">#ffffff</Color>
+    <Color x:Key="ActiveCaptionTextColorKey">#ffffff</Color>
+    <Color x:Key="ControlTextColorKey">#ced4dd</Color>
+    <Color x:Key="HighlightTextColorKey">#000000</Color>
+    <Color x:Key="InactiveBorderColorKey">#515151</Color>
+    <Color x:Key="InactiveCaptionIconColorKey">#7f8899</Color>
+    <Color x:Key="InactiveCaptionTextColorKey">#b4bac4</Color>
+    <Color x:Key="StatusBarBlueColorKey">#007acc</Color>
+    <Color x:Key="StatusBarGreenColorKey">#227447</Color>
+    <Color x:Key="StatusBarOrangeColorKey">#ca5100</Color>
+    <Color x:Key="StatusBarPurpleColorKey">#68217a</Color>
+    <Color x:Key="StatusBarTextColorKey">#ffffff</Color>
+    <Color x:Key="WindowColorKey">#293955</Color>
+    <Color x:Key="WindowCommandActiveColorKey">#ffe8a6</Color>
+    <Color x:Key="WindowCommandActiveBorderColorKey">#e5c365</Color>
+    <Color x:Key="WindowCommandActiveTextColorKey">#000000</Color>
+    <Color x:Key="WindowCommandHighlightBorderColorKey">#e5c365</Color>
+    <Color x:Key="WindowCommandHighlightColorKey">#fffcf4</Color>
+    <Color x:Key="WindowCommandHighlightTextColorKey">#000000</Color>
+    <Color x:Key="WindowFrameColorKey">#293955</Color>
+
+    <!-- BRUSHES -->
+    <SolidColorBrush x:Key="ActiveBorderBrushKey" Color="{StaticResource ActiveBorderColorKey}" />
+    <SolidColorBrush x:Key="ActiveCaptionIconBrushKey" Color="{StaticResource ActiveCaptionIconColorKey}" />
+    <SolidColorBrush x:Key="ActiveCaptionTextBrushKey" Color="{StaticResource ActiveCaptionTextColorKey}" />
+    <SolidColorBrush x:Key="ControlTextBrushKey" Color="{StaticResource ControlTextColorKey}" />
+    <SolidColorBrush x:Key="HighlightTextBrushKey" Color="{StaticResource HighlightTextColorKey}" />
+    <SolidColorBrush x:Key="InactiveBorderBrushKey" Color="{StaticResource InactiveBorderColorKey}" />
+    <SolidColorBrush x:Key="InactiveCaptionIconBrushKey" Color="{StaticResource InactiveCaptionIconColorKey}" />
+    <SolidColorBrush x:Key="InactiveCaptionTextBrushKey" Color="{StaticResource InactiveCaptionTextColorKey}" />
+    <SolidColorBrush x:Key="StatusBarBlueBrushKey" Color="{StaticResource StatusBarBlueColorKey}" />
+    <SolidColorBrush x:Key="StatusBarGreenBrushKey" Color="{StaticResource StatusBarGreenColorKey}" />
+    <SolidColorBrush x:Key="StatusBarOrangeBrushKey" Color="{StaticResource StatusBarOrangeColorKey}" />
+    <SolidColorBrush x:Key="StatusBarPurpleBrushKey" Color="{StaticResource StatusBarPurpleColorKey}" />
+    <SolidColorBrush x:Key="StatusBarTextBrushKey" Color="{StaticResource StatusBarTextColorKey}" />
+    <SolidColorBrush x:Key="WindowBrushKey" Color="{StaticResource WindowColorKey}" />
+    <SolidColorBrush x:Key="WindowCommandActiveBrushKey" Color="{StaticResource WindowCommandActiveColorKey}" />
+    <SolidColorBrush x:Key="WindowCommandActiveBorderBrushKey" Color="{StaticResource WindowCommandActiveBorderColorKey}" />
+    <SolidColorBrush x:Key="WindowCommandActiveTextBrushKey" Color="{StaticResource WindowCommandActiveTextColorKey}" />
+    <SolidColorBrush x:Key="WindowCommandHighlightBorderBrushKey" Color="{StaticResource WindowCommandHighlightBorderColorKey}" />
+    <SolidColorBrush x:Key="WindowCommandHighlightBrushKey" Color="{StaticResource WindowCommandHighlightColorKey}" />
+    <SolidColorBrush x:Key="WindowCommandHighlightTextBrushKey" Color="{StaticResource WindowCommandHighlightTextColorKey}" />
+    <SolidColorBrush x:Key="WindowFrameBrushKey" Color="{StaticResource WindowFrameColorKey}" />
+</ResourceDictionary>
