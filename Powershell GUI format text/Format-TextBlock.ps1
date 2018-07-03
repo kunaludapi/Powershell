@@ -78,13 +78,3 @@ $xaml.SelectNodes("//*[@*[contains(translate(name(.),'n','N'),'Name')]]")  | For
 
 #Mandetory last line of every script to load form 
 [void]$Form.ShowDialog() 
-
-<#
-$Text.Inlines.Add("An example on") 
-$Run = New-Object System.Windows.Documents.Run 
-$Run.Text = 'the textBox Control' 
-$Run.FontWeight = 'DemiBold' 
-#$Run.TextDecorations = $decorations 
-#$Run.FontStyle = $atyle 
-$Text.Inlines.Add($Run) 
-#>
