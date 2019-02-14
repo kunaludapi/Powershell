@@ -1,4 +1,7 @@
+#Convert below hashtable to table psobject
 $test = @{abc = '{{a,1}, {b,2}, {c,3}}'; def = '{{a,4}, {b,5}, {c,6}}'; ghi = '{{a,7}, {b,8}, {c,9}}'}
+
+##answer
 $test.Keys | foreach-Object { 
     $Name = $_
     $r = Invoke-Expression "@{$(($test[$Name] -replace ', ', '; ').Replace(',','=').replace('{','').replace('}',''))}" #.indexof(1,$($test - 2))
