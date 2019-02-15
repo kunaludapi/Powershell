@@ -1,4 +1,6 @@
-﻿Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms, System.Drawing 
+#http://vcloud-lab.com
+
+Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms, System.Drawing 
 
 [xml]$xaml = @"
 <Window 
@@ -10,7 +12,7 @@
 
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <GroupBox x:Name="Group1" Header="Populate your clock for Group1" HorizontalAlignment="Left" Height="140" Margin="10,10,0,0" VerticalAlignment="Top" Width="332" IsEnabled="False">
+        <GroupBox x:Name="Group1" Header="Populate your clock for Group1" HorizontalAlignment="Left" Height="140" Margin="10,10,0,0" VerticalAlignment="Top" Width="332" IsHitTestVisible="False" IsTabStop="True">
             <Grid>
 
                 <TextBox x:Name="TextBoxHoursGroup1" HorizontalAlignment="Left" Height="68" Margin="10,10,0,0" TextWrapping="Wrap" Text="88" VerticalAlignment="Top" Width="68" FontSize="45"/>
@@ -41,7 +43,7 @@ $xaml.SelectNodes("//*[@*[contains(translate(name(.),'n','N'),'Name')]]")  | For
 $TimeZone = Get-TimeZone 
 $Group1.Header = $TimeZone.StandardName
 
-function UpdateClock($TextBoxHours, $TextBoxMinutes, $TextBoxSeconds){
+function AutoUpdateClock($TextBoxHours, $TextBoxMinutes, $TextBoxSeconds){
     $DateTime = Get-Date #"MM dd yyyy HH mm ss tt"
     $TextBoxHours.Text = $DateTime.Hour.ToString("00")
     $TextBoxMinutes.Text = $DateTime.Minute.ToString("00")
@@ -51,16 +53,19 @@ function UpdateClock($TextBoxHours, $TextBoxMinutes, $TextBoxSeconds){
         'AM' {$RadioButtonAmGroup1.isChecked = $True; break}
         'PM' {$RadioButtonPmGroup1.isChecked = $True; break}
     }
-}
+    $DatepickerGroup1.SelectedDate = $DateTime
+    $DatepickerGroup1.SelectedDate
+    }
 
 $Local:Group1timer = New-Object System.Windows.Forms.Timer
 $Group1timer.Interval = 1
-$Group1timer.Add_Tick({UpdateClock -TextBoxHours $TextBoxHoursGroup1 -TextBoxMinutes $TextBoxMinutesGroup1 -TextBoxSeconds $TextBoxSecondsGroup1})
+$Group1timer.Add_Tick({AutoUpdateClock -TextBoxHours $TextBoxHoursGroup1 -TextBoxMinutes $TextBoxMinutesGroup1 -TextBoxSeconds $TextBoxSecondsGroup1})
 $Group1timer.Enabled = $True
 
 $ButtonStopGroup1.Add_click({
     $Group1timer.Enabled = $false
     $Group1timer.Stop()
+    $Group1timer.Dispose()
     
 })
 
