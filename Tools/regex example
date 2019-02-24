@@ -1,0 +1,18 @@
+#24 hours clock
+^([01]\d|2[0-3]):?([0-5]\d)$
+
+The expression reads:
+
+^        Start of string (anchor)
+(        begin capturing group
+  [01]   a "0" or "1"
+  \d     any digit
+ |       or
+  2[0-3] "2" followed by a character between 0 and 3 inclusive
+)        end capturing group
+:?       optional colon
+(        start capturing
+  [0-5]  character between 0 and 5
+  \d     digit
+)        end group
+$        end of string anchor
