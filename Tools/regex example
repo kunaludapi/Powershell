@@ -1,3 +1,5 @@
+#https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch06s07.html
+
 #24 hours clock
 ^([01]\d|2[0-3]):?([0-5]\d)$
 
