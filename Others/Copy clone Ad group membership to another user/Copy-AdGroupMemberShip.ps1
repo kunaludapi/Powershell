@@ -81,8 +81,8 @@ Process
         try 
         {
             $groupInfo = Get-AdGroup $group 
-            $groupInfo | Add-ADGroupMember -Members $confirmedUserList -ErrorAction Stop
             $groupName = $groupInfo.Name
+            $groupInfo | Add-ADGroupMember -Members $confirmedUserList -ErrorAction Stop
             Write-Host -BackgroundColor DarkGreen "Added destination users to group '$groupName'"
         } #try
 
@@ -93,7 +93,7 @@ Process
                 Write-Host -BackgroundColor DarkMagenta "Provided destination user list is invalid, Please Try again."
                 break
             }
-            $Error[0].Exception.Message
+            Write-Host -BackgroundColor DarkMagenta $groupName - $($Error[0].Exception.Message)
         } #catch
     } #foreach ($group in $sourceUserMemberOf.MemberOf) 
 } #Process
