@@ -8,7 +8,7 @@
 # ---------------------------------------------------
 # Script: C:\Scripts\GetAzureSubscriptionRESTAPI.ps1
 # Version:
-# Author: Stefan Stranger
+# Author: 
 # Date: 10/28/2016 15:16:25
 # Description: Get Azure Subscription Info using plain REST API calls.
 # Comments:
