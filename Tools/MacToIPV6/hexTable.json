@@ -1,0 +1,101 @@
+[
+	{
+		xHex: '0',
+        xBin: '0000',
+        yHex: '2',
+        yBin: '0010'
+
+	},
+	{
+		xHex: '1',
+        xBin: '0001',
+        yHex: '3',
+        yBin: '0011'
+	},
+	{
+		xHex: '2',
+        xBin: '0010',
+        yHex: '0',
+        yBin: '0000'
+	},
+	{
+		xHex: '3',
+        xBin: '0011',
+        yHex: '1',
+        yBin: '0001'
+
+	},
+	{
+		xHex: '4',
+        xBin: '0100',
+        yHex: '6',
+        yBin: '0110'
+	},
+    {
+		xHex: '5',
+        xBin: '0101',
+        yHex: '7',
+        yBin: '0111'
+	},
+	{
+		xHex: '6',
+        xBin: '0110',
+        yHex: '4',
+        yBin: '0100'
+	},
+	{
+		xHex: '7',
+        xBin: '0111',
+        yHex: '5',
+        yBin: '0101'
+	},
+	{
+		xHex: '8',
+        xBin: '1000',
+        yHex: 'a',
+        yBin: '1010'
+	},
+	{
+		xHex: '9',
+        xBin: '1001',
+        yHex: 'b',
+        yBin: '1011'
+	},
+	{
+		xHex: 'a',
+        xBin: '1010',
+        yHex: '8',
+        yBin: '1000'
+	},
+	{
+		xHex: 'b',
+        xBin: '1011',
+        yHex: '9',
+        yBin: '1001'
+	},
+	{
+		xHex: 'c',
+        xBin: '1100',
+        yHex: 'e',
+        yBin: '1110'
+	},
+	{
+		xHex: 'd',
+        xBin: '1101',
+        yHex: 'f',
+        yBin: '1111'
+	},
+	{
+		xHex: 'e',
+        xBin: '1110',
+        yHex: 'c',
+        yBin: '1100'
+	},
+	{
+		xHex: 'f',
+        xBin: '1111',
+        yHex: 'd',
+        yBin: '1101'
+	}
+
+]
