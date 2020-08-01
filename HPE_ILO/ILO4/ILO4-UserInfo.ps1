@@ -25,3 +25,7 @@ $authHeader = @{'X-Auth-Token' = $session.Headers.'X-Auth-Token'}
 $accountsAPI = "https://$hpeilo/rest/v1/AccountService/Accounts"
 $accountList = Invoke-WebRequest -Uri $accountsAPI -Method Get -Headers $authHeader
 ($accountList.Content | ConvertFrom-Json).Items | Select-Object -Property UserName, Id
+
+#ILO4 - LogOut
+$authHeader = @{'X-Auth-Token' = $session.Headers.'X-Auth-Token'}
+$accountList = Invoke-WebRequest -Uri $hpeSession.Headers.Location -Method Delete -Headers $authHeader -UseBasicParsing
