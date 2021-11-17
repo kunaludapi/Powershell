@@ -1,5 +1,8 @@
-#real time data Auto update form
+#Initialize the GUI
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 
+#real time data Auto update form
 function UpdateProcCount($Label)
 {
     $Label.Text = "Number of processes running on my computer: " + (Get-Process | measure).Count
